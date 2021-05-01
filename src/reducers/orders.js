@@ -6,7 +6,7 @@ import {
 
 const initialState = {
   isLoading: false,
-  orders: {},
+  orders: [],
   error: {},
 }
 
@@ -19,7 +19,7 @@ export default (
       return {
         ...state,
         isLoading: true,
-        orders: {},
+        orders: [],
         error: {},
       };
 
@@ -27,7 +27,7 @@ export default (
       return {
         ...state,
         isLoading: false,
-        orders: action.payload.orders,
+        orders: action.payload,
         error: {},
       };
 
@@ -35,7 +35,7 @@ export default (
       return {
         ...state,
         isLoading: false,
-        orders: {},
+        orders: [],
         error: action.payload.error,
       };
     default:

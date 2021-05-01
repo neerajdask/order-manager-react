@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +25,7 @@ import { mainListItems } from "./listItems";
 import Orders from "./Orders";
 import { deepOrange, deepPurple, pink } from "@material-ui/core/colors";
 
-import { logoutUser } from "../../actions"
+import { logoutUser,  fetchOrders } from "../../actions";
 
 function Copyright() {
   return (
@@ -125,7 +125,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ()=> {
+const Dashboard = (props) => {
+  const { logoutUser, fetchOrders } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -136,9 +137,14 @@ const Dashboard = ()=> {
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const logout = () => {
+  const handleLogout = () => {
     logoutUser();
   };
+
+    useEffect(() => {
+    // fetchOrders();
+  }, []);
+
 
   return (
     <div className={classes.root}>
@@ -169,13 +175,17 @@ const Dashboard = ()=> {
           >
             Dashboard
           </Typography>
-          <IconButton color="inherit">
+          <IconButton
+            color="inherit"
+            onClick={() => {
+              handleLogout();
+            }}
+          >
             {/* <Badge badgeContent={4} color="secondary"> */}
             <Avatar
               alt="User"
               src="/static/images/avatar/1.jpg"
               className={classes.pink}
-              
             />
             {/* </Badge> */}
           </IconButton>
@@ -225,11 +235,12 @@ const Dashboard = ()=> {
       </main>
     </div>
   );
-}
+};
 
 function mapStateToProps(state) {
   return {};
 }
 export default connect(mapStateToProps, {
   logoutUser,
+  fetchOrders,
 })(Dashboard);

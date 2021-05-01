@@ -30,7 +30,6 @@ export function fetchUsers() {
     dispatch(fetchUsersRequest());
     return API.get(`users`)
       .then((response) => {
-        console.log(response);
         dispatch(fetchUsersSuccess(response));
       })
       .catch((err) => {

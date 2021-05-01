@@ -29,8 +29,8 @@ export function fetchOrders() {
     dispatch(fetchOrdersRequest());
     return API.get(`orders`)
       .then((response) => {
-        console.log(response);
-        dispatch(fetchOrdersSuccess(response));
+        console.log(response.data)
+        dispatch(fetchOrdersSuccess(response.data));
       })
       .catch((err) => {
         dispatch(fetchOrdersFailure(err));
