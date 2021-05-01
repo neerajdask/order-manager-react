@@ -1,5 +1,6 @@
-import { applyMiddleware, createStore } from "redux";
-import thunkMiddleware from "redux-thunk";
+import { applyMiddleware, createStore, compose } from "redux";
+// import thunkMiddleware from "redux-thunk";
+import thunk from 'redux-thunk';
 import { verifyAuth } from "./actions";
 import rootReducer from "./reducers";
 
@@ -7,7 +8,10 @@ export default function configureStore(persistedState) {
   const store = createStore(
     rootReducer,
     persistedState,
-    applyMiddleware(thunkMiddleware)
+    compose(
+      applyMiddleware(thunk),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
   );
   store.dispatch(verifyAuth());
   return store;

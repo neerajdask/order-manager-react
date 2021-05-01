@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { loginUser } from "../actions/auth";
-import { fetchOrders } from "../actions/orders";
 import { withStyles } from "@material-ui/styles";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -57,7 +56,6 @@ class Login extends Component {
     const { email, password } = this.state;
 
     dispatch(loginUser(email, password));
-    dispatch(fetchOrders());
     
   };
 

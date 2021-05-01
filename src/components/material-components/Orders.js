@@ -1,12 +1,15 @@
-import React from 'react';
-import Link from '@material-ui/core/Link';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Title from './Title';
+import React, { useEffect } from "react";
+import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Title from "./Title";
+import { connect } from "react-redux";
+
+import { fetchOrders } from "../../actions/orders";
 
 // Generate Order Data
 function createData(id, title, date, address, customer) {
@@ -14,10 +17,21 @@ function createData(id, title, date, address, customer) {
 }
 
 const rows = [
-  createData(0, 'Harry Potter', '12-05-2021', 'Elm Street, Germany', 'Daniel Radcliff'),
-  createData(1, 'LOTR', '12-06-2021', 'Redmond avenue, Berlin', 'Tom Hanks'),
-  createData(2, 'Get Smart', '14-08-2020', 'Chuck Norris St, France', 'Chuck Norris'),
- 
+  createData(
+    0,
+    "Harry Potter",
+    "12-05-2021",
+    "Elm Street, Germany",
+    "Daniel Radcliff"
+  ),
+  createData(1, "LOTR", "12-06-2021", "Redmond avenue, Berlin", "Tom Hanks"),
+  createData(
+    2,
+    "Get Smart",
+    "14-08-2020",
+    "Chuck Norris St, France",
+    "Chuck Norris"
+  ),
 ];
 
 function preventDefault(event) {
@@ -30,8 +44,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
+const Orders = (props) => {
   const classes = useStyles();
+
+  const { orders, fetchOrders } = props;
+
+  useEffect(() => {
+    fetchOrders();
+    console.log(orders)
+  }, []);
+
   return (
     <React.Fragment>
       <Title>Your orders</Title>
@@ -62,4 +84,12 @@ export default function Orders() {
       </div>
     </React.Fragment>
   );
+};
+
+function mapStateToProps(state) {
+  return {
+    orders: state.orders.orders,
+  };
 }
+
+export default connect(mapStateToProps, { fetchOrders })(Orders);
