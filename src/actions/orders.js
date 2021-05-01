@@ -33,6 +33,7 @@ export function fetchOrders() {
         dispatch(fetchOrdersSuccess(response.data));
       })
       .catch((err) => {
+        console.log(err)
         dispatch(fetchOrdersFailure(err));
       });
   };

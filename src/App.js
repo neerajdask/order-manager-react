@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import OrdersView from "./components/OrdersView";
+import EditOrders from "./components/EditOrder";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -23,6 +24,14 @@ function App(props) {
         exact
         path="/orders"
         component={withRouter(OrdersView)}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      
+      <ProtectedRoute
+        exact
+        path="/editOrder/:id"
+        component={withRouter(EditOrders)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
