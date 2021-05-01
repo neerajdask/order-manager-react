@@ -32,10 +32,6 @@ const Orders = (props) => {
     alert(`clicked ${id}`)
   }
 
-  const viewMoreOrders = ()=>{
-    history.push('/orders')
-  }
-
   return (
     <React.Fragment>
       <Title>Your orders</Title>
