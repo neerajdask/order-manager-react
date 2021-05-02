@@ -28,15 +28,16 @@ function App(props) {
         isVerifying={isVerifying}
       />
       
-      <ProtectedRoute
+      {/* <ProtectedRoute
         exact
         path="/editOrder/:id"
         component={withRouter(EditOrders)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
-      />
+      /> */}
 
       <Route path="/login" component={Login} />
+      <Route path="/edit" component={EditOrders} />
     </Switch>
   );
 }
