@@ -24,6 +24,7 @@ import Orders from "./Orders";
 import { deepOrange, deepPurple, pink } from "@material-ui/core/colors";
 
 import { logoutUser,  fetchOrders } from "../../actions";
+import { withRouter } from "react-router-dom"
 
 const drawerWidth = 240;
 
@@ -111,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Dashboard = (props) => {
-  const { logoutUser, fetchOrders } = props;
+  const { logoutUser, fetchOrders, history } = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -123,7 +124,8 @@ const Dashboard = (props) => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const handleLogout = () => {
-    logoutUser();
+    // logoutUser();
+    history.push('/orders')
   };
 
     useEffect(() => {
@@ -198,15 +200,7 @@ const Dashboard = (props) => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Chart */}
             <Grid item xs={12} md={8} lg={9}></Grid>
-            {/* Recent Deposits */}
-            {/* <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid> */}
-            {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <Orders />
@@ -228,4 +222,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   logoutUser,
   fetchOrders,
-})(Dashboard);
+})(withRouter(Dashboard));

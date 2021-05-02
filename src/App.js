@@ -20,13 +20,13 @@ function App(props) {
         isVerifying={isVerifying}
       />
       
-      <ProtectedRoute
+      {/* <ProtectedRoute
         exact
         path="/orders"
         component={withRouter(OrdersView)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
-      />
+      /> */}
       
       {/* <ProtectedRoute
         exact
@@ -38,6 +38,7 @@ function App(props) {
 
       <Route path="/login" component={Login} />
       <Route path="/edit" component={EditOrders} />
+      <Route path="/orders" component={OrdersView} />
     </Switch>
   );
 }

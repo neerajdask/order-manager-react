@@ -75,8 +75,8 @@ let EditOrder = (props) => {
   );
 };
 
-EditOrder = reduxForm({
-  form: "editOrderForm",
-})(EditOrder);
+// EditOrder = reduxForm({
+//   form: "editOrderForm",
+// })(EditOrder);
 
 export default EditOrder;
