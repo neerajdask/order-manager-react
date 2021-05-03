@@ -37,7 +37,7 @@ function App(props) {
       /> */}
 
       <Route path="/login" component={Login} />
-      <Route path="/edit" component={EditOrders} />
+      <Route path="/editOrder" component={EditOrders} />
       <Route path="/orders" component={OrdersView} />
     </Switch>
   );

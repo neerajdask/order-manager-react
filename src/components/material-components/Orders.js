@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -12,7 +11,7 @@ import Title from "./Title";
 import { connect } from "react-redux";
 
 import { fetchOrders } from "../../actions/orders";
-import { withRouter } from "react-router-dom"
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   seeMore: {
@@ -23,14 +22,17 @@ const useStyles = makeStyles((theme) => ({
 const Orders = (props) => {
   const classes = useStyles();
 
-  const { orders, fetchOrders, isLoading, history } = props;
+  const { orders, fetchOrders, isLoading, history, user } = props;
 
   useEffect(() => {
-    fetchOrders();
+    if (props.location.pathname !== "/orders" ) {
+      // fetchOrders();
+    }
   }, []);
 
   const handleItemClick = (id) => {
-    history.push(`/editOrder?uid=${id}`);
+    // history.push(`/editOrder?uid=${id}`);
+    history.push(`/editOrder/${id}`);
   };
 
   return (
@@ -76,6 +78,7 @@ const Orders = (props) => {
 
 function mapStateToProps(state) {
   return {
+    user: state.auth.user,
     orders: state.orders.orders,
     isLoading: state.orders.isLoading,
   };

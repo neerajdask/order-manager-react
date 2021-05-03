@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,20 +11,25 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Avatar from "@material-ui/core/Avatar";
-import { mainListItems } from "./listItems";
-import {Copyright} from '../Copyright'
+import { Copyright } from "../Copyright";
 import Orders from "./Orders";
-import { deepOrange, deepPurple, pink } from "@material-ui/core/colors";
+import { deepOrange, pink } from "@material-ui/core/colors";
 
-import { logoutUser,  fetchOrders } from "../../actions";
-import { withRouter } from "react-router-dom"
+import { logoutUser, fetchOrders } from "../../actions";
+import { withRouter } from "react-router-dom";
+
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import PeopleIcon from "@material-ui/icons/People";
 
 const drawerWidth = 240;
 
@@ -124,14 +129,12 @@ const Dashboard = (props) => {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const handleLogout = () => {
-    // logoutUser();
-    history.push('/orders')
+    logoutUser();
   };
 
-    useEffect(() => {
-    // fetchOrders();
-  }, []);
-
+  const handleClick = () => {
+    history.push("/orders");
+  };
 
   return (
     <div className={classes.root}>
@@ -168,13 +171,11 @@ const Dashboard = (props) => {
               handleLogout();
             }}
           >
-            {/* <Badge badgeContent={4} color="secondary"> */}
             <Avatar
               alt="User"
               src="/static/images/avatar/1.jpg"
               className={classes.pink}
             />
-            {/* </Badge> */}
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -191,9 +192,29 @@ const Dashboard = (props) => {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <List>
+          <div>
+            <ListItem button>
+              <ListItemIcon>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+            <ListItem button onClick={handleClick}>
+              <ListItemIcon>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              <ListItemText primary="Orders" />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                <PeopleIcon />
+              </ListItemIcon>
+              <ListItemText primary="Customers" />
+            </ListItem>
+          </div>
+        </List>
         <Divider />
-        {/* <List>{secondaryListItems}</List> */}
       </Drawer>
 
       <main className={classes.content}>
