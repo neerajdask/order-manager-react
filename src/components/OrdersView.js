@@ -5,20 +5,28 @@ import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import { Copyright } from "./Copyright";
-import Orders from './material-components/Orders'
+import Snackbar from "@material-ui/core/Snackbar";
+// import MuiAlert from "@material-ui/lab/Alert";
 
-const OrdersView = ({history}) => {
+import { Copyright } from "./Copyright";
+import Orders from "./material-components/Orders";
+
+const OrdersView = ({ history }) => {
   const useStyles = makeStyles((theme) => ({
+    root: {
+      width: "100%",
+      "& > * + *": {
+        marginTop: theme.spacing(2),
+      },
+    },
     appBar: {
       position: "relative",
-     
     },
     toolBar: {
-      display: 'flex',
-      justifyContent: 'space-between'
+      display: "flex",
+      justifyContent: "space-between",
     },
     layout: {
       width: "auto",
@@ -52,8 +60,23 @@ const OrdersView = ({history}) => {
 
   const classes = useStyles();
 
+  const [open, setOpen] = React.useState(false);
+
   const handleClick = () => {
-    history.push(`/editOrder/${2}`);
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const addNewOrder = () => {
+    history.push(`/addOrder`);
+    // setOpen(true);
   };
 
   return (
@@ -64,7 +87,9 @@ const OrdersView = ({history}) => {
           <Typography variant="h6" color="inherit" noWrap>
             Orders
           </Typography>
-          <Button variant="contained" color="secondary"  onClick={handleClick}>Add Order</Button>
+          <Button variant="contained" color="secondary" onClick={addNewOrder}>
+            Add Order
+          </Button>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
@@ -73,6 +98,17 @@ const OrdersView = ({history}) => {
         </Paper>
         <Copyright />
       </main>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Order Added successfully!"
+      />
     </React.Fragment>
   );
 };

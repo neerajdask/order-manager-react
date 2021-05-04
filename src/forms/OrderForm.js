@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import Grid from "@material-ui/core/Grid";
 import { reduxForm } from "redux-form";
+
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { updateOrder, addOrder } from "../actions/orders";
 
@@ -19,6 +21,8 @@ let OrderForm = (props) => {
     mode,
     updateOrder,
     addOrder,
+    isAddingInProgress,
+    isUpdateInProgress,
   } = props;
   const [item, setItem] = useState({});
   const [newTitle, setNewTitle] = useState(" ");
@@ -37,19 +41,19 @@ let OrderForm = (props) => {
       });
       if (found) {
         setItem(found);
-        setTitle(found.title); // check
+        setTitle(found.title);
         setNewTitle(found.title);
       }
     }
+    setTitle(" ");
+    setNewTitle(" ");
   }, [id]);
 
   handleSubmit = () => {
-    console.log(newTitle);
     if (mode === "edit") {
       return updateOrder(item.uid, newTitle);
     }
-    // return addOrder(id, title, customerName, city, country, street, zip); // add params. check id
-    return addOrder(title, customerName, city, country, street, zip); // add params. check id
+    return addOrder(id, title, customerName, street, city, zip, country);
   };
 
   return (
@@ -58,86 +62,108 @@ let OrderForm = (props) => {
         Order Details
       </Typography>
 
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="title"
-              name="title"
-              label="Title"
-              fullWidth
-              value={mode === "edit" ? newTitle : ""}
-              onInput={(e) => setNewTitle(e.target.value)}
-            />
+      {isAddingInProgress || isUpdateInProgress ? (
+        <CircularProgress />
+      ) : (
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="title"
+                name="title"
+                label="Title"
+                fullWidth
+                value={mode === "edit" ? newTitle : title}
+                onInput={(e) =>
+                  mode === "edit"
+                    ? setNewTitle(e.target.value)
+                    : setTitle(e.target.value)
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="customerName"
+                name="customerName"
+                label="Customer Name"
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                value={
+                  mode === "edit" ? item?.customer?.name || " " : customerName
+                }
+                onInput={(e) => setCustomerName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                id="street"
+                name="street"
+                label="Street"
+                fullWidth
+                value={mode === "edit" ? item?.address?.street || " " : street}
+                disabled={mode === "edit" ? true : false}
+                onInput={(e) => setStreet(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="city"
+                name="city"
+                label="City"
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                value={mode === "edit" ? item?.address?.city || " " : city}
+                onInput={(e) => setCity(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="zip"
+                name="zip"
+                label="Zip / Postal code"
+                value={mode === "edit" ? item?.address?.zip || " " : zip}
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                onInput={(e) => setZip(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="country"
+                name="country"
+                label="Country"
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                value={
+                  mode === "edit" ? item?.address?.country || " " : country
+                }
+                onInput={(e) => setCountry(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="customerName"
-              name="customerName"
-              label="Customer Name"
-              fullWidth
-              disabled={mode === "edit" ? true : false}
-              value={mode === "edit" ? item?.customer?.name || " " : ""}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="street"
-              name="street"
-              label="Street"
-              fullWidth
-              value={mode === "edit" ? item?.address?.street || " " : " "}
-              disabled={mode === "edit" ? true : false}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="city"
-              name="city"
-              label="City"
-              fullWidth
-              disabled={mode === "edit" ? true : false}
-              value={mode === "edit" ? item?.address?.city || " " : " "}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="zip"
-              name="zip"
-              label="Zip / Postal code"
-              value={mode === "edit" ? item?.address?.zip || " " : " "}
-              fullWidth
-              disabled={mode === "edit" ? true : false}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="country"
-              name="country"
-              label="Country"
-              fullWidth
-              disabled={mode === "edit" ? true : false}
-              value={mode === "edit" ? item?.address?.country || " " : ""}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+        </form>
+      )}
     </React.Fragment>
   );
 };
@@ -145,6 +171,8 @@ let OrderForm = (props) => {
 const mapStateToProps = (state) => {
   return {
     orders: state.orders.orders,
+    isAddingInProgress: state.orders.isAddingInProgress,
+    isUpdateInProgress: state.orders.isUpdateInProgress,
   };
 };
 

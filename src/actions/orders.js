@@ -1,5 +1,7 @@
 import { API } from "../api";
 
+import {history} from '../history/history'
+
 export const FETCH_ORDERS_REQUEST = "FETCH_ORDERS_REQUEST";
 export const FETCH_ORDERS_SUCCESS = "FETCH_ORDERS_SUCCESS";
 export const FETCH_ORDERS_FAILURE = "FETCH_ORDERS_FAILURE";
@@ -93,6 +95,7 @@ export function updateOrder(id, newTitle) {
     })
       .then((res) => {
         console.log(res.data);
+        history.pushState("/orders")
         dispatch(updateOrderSuccess(res.data));
       })
       .catch((err) => {
@@ -106,14 +109,14 @@ export function addOrder(
   id = 0,
   title,
   customerName,
-  city,
-  country,
   street,
-  zip
+  city,
+  zip,
+  country
 ) {
   return (dispatch) => {
     dispatch(addOrderRequest());
-    return API.post(`orders/`, {
+    return API.post(`orders`, {
       id,
       title,
       customer: {
@@ -122,16 +125,17 @@ export function addOrder(
         phone: "015252098067",
       },
       address: {
-        city,
-        country,
         street,
+        city,
         zip,
+        country,
       },
       bookingDate: new Date().getTime(),
     })
       .then((res) => {
         console.log(res.data);
         dispatch(addOrderSuccess(res.data));
+        history.push("/orders")
       })
       .catch((err) => {
         console.log(err);

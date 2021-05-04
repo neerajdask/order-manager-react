@@ -5,6 +5,9 @@ import {
   UPDATE_ORDER_DETAILS_REQUEST,
   UPDATE_ORDER_DETAILS_SUCCESS,
   UPDATE_ORDER_DETAILS_FAILURE,
+  ADD_ORDER_REQUEST,
+  ADD_ORDER_SUCCESS,
+  ADD_ORDER_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -12,6 +15,7 @@ const initialState = {
   orders: [],
   error: {},
   isUpdateInProgress: false,
+  isAddingInProgress: false,
 };
 
 export default (state = initialState, action) => {
@@ -53,6 +57,24 @@ export default (state = initialState, action) => {
     case UPDATE_ORDER_DETAILS_FAILURE:
       return {
         ...state,
+      };
+    
+      case ADD_ORDER_REQUEST:
+      return {
+        ...state,
+        isAddingInProgress: true,
+      };
+
+    case ADD_ORDER_SUCCESS:
+      return {
+        ...state,
+        isAddingInProgress: false,
+      };
+
+    case ADD_ORDER_FAILURE:
+      return {
+        ...state,
+        isAddingInProgress: false,
       };
 
     default:
