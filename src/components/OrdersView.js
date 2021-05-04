@@ -1,20 +1,24 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
+import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
+import Button from '@material-ui/core/Button';
 import Paper from "@material-ui/core/Paper";
 import { Copyright } from "./Copyright";
 import Orders from './material-components/Orders'
 
-const OrdersView = () => {
+const OrdersView = ({history}) => {
   const useStyles = makeStyles((theme) => ({
     appBar: {
       position: "relative",
+     
+    },
+    toolBar: {
+      display: 'flex',
+      justifyContent: 'space-between'
     },
     layout: {
       width: "auto",
@@ -36,9 +40,6 @@ const OrdersView = () => {
         padding: theme.spacing(3),
       },
     },
-    stepper: {
-      padding: theme.spacing(3, 0, 5),
-    },
     buttons: {
       display: "flex",
       justifyContent: "flex-end",
@@ -50,14 +51,20 @@ const OrdersView = () => {
   }));
 
   const classes = useStyles();
+
+  const handleClick = () => {
+    history.push(`/editOrder/${2}`);
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="absolute" color="primary" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar className={classes.toolBar}>
           <Typography variant="h6" color="inherit" noWrap>
             Orders
           </Typography>
+          <Button variant="contained" color="secondary"  onClick={handleClick}>Add Order</Button>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
@@ -69,13 +76,4 @@ const OrdersView = () => {
     </React.Fragment>
   );
 };
-
-// function mapStateToProps(state) {
-//   return {
-//     isLoggingOut: state.auth.isLoggingOut,
-//     logoutError: state.auth.logoutError,
-//   };
-// }
-export default OrdersView;
-// export default connect(mapStateToProps, {
-// })(OrdersView);
+export default withRouter(OrdersView);

@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import OrdersView from "./components/OrdersView";
 import EditOrders from "./components/EditOrder";
+import AddOrder from "./components/AddOrder";
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -37,8 +38,9 @@ function App(props) {
       /> */}
 
       <Route path="/login" component={Login} />
-      <Route path="/editOrder" component={EditOrders} />
       <Route path="/orders" component={OrdersView} />
+      <Route path="/editOrder/:id" component={EditOrders} />
+      <Route path="/addOrder" component={AddOrder} />
     </Switch>
   );
 }

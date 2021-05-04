@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-let EditOrder = (props) => {
+let AddOrder = (props) => {
   const classes = useStyles();
   const { id } = props.match.params;
   return (
@@ -62,11 +62,11 @@ let EditOrder = (props) => {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Edit your Order
+            Add an Order
           </Typography>
 
           <React.Fragment>
-            <OrderForm id={id} mode='edit'/>
+            <OrderForm id={id} mode='add'/>
           </React.Fragment>
         </Paper>
         <Copyright />
@@ -75,4 +75,4 @@ let EditOrder = (props) => {
   );
 };
 
-export default EditOrder;
+export default AddOrder;
