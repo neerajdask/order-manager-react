@@ -7,8 +7,17 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from '@material-ui/core/styles';
 
 import { updateOrder, addOrder } from "../actions/orders";
+
+import {history} from '../history/history'
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 let OrderForm = (props) => {
   let {
@@ -24,6 +33,8 @@ let OrderForm = (props) => {
     isAddingInProgress,
     isUpdateInProgress,
   } = props;
+
+  const classes = useStyles();
   const [item, setItem] = useState({});
   const [newTitle, setNewTitle] = useState(" ");
 
@@ -54,6 +65,10 @@ let OrderForm = (props) => {
       return updateOrder(item.uid, newTitle);
     }
     return addOrder(id, title, customerName, street, city, zip, country);
+  };
+  
+  const handleCancel = () => {
+    history.push('/orders') // check the reload issue. URL updated
   };
 
   return (
@@ -154,11 +169,21 @@ let OrderForm = (props) => {
             <Grid item xs={12}>
               <Button
                 variant="contained"
+                className={classes.margin}
                 color="primary"
                 type="submit"
                 onClick={handleSubmit}
               >
                 Submit
+              </Button>
+              
+              <Button
+                variant="contained"
+                color="secondary"
+                type="button"
+                onClick={handleCancel}
+              >
+                Cancel
               </Button>
             </Grid>
           </Grid>
