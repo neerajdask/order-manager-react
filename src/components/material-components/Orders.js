@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -6,6 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Link from "@material-ui/core/Link";
 
 import Title from "./Title";
 import { connect } from "react-redux";
@@ -14,6 +15,13 @@ import { fetchOrders } from "../../actions/orders";
 import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    justifyContent: 'space-around',
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
+  },
   seeMore: {
     marginTop: theme.spacing(3),
   },
@@ -22,24 +30,33 @@ const useStyles = makeStyles((theme) => ({
 const Orders = (props) => {
   const classes = useStyles();
 
-  const { orders, fetchOrders, isLoading, history, user } = props;
+  const { orders, fetchOrders, isLoading, history, location } = props;
+
+  const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
-    if (props.location.pathname !== "/orders" ) {
-      // fetchOrders();
+    if (location.pathname !== "/orders") {
+      fetchOrders();
+      setShowMore(true);
     }
   }, []);
 
   const handleItemClick = (id) => {
-    // history.push(`/editOrder?uid=${id}`);
     history.push(`/editOrder/${id}`);
+  };
+
+  const viewMoreOrders = () => {
+    setShowMore(false);
+    history.push(`/orders`);
   };
 
   return (
     <React.Fragment>
       <Title>Your orders</Title>
       {isLoading ? (
-        <CircularProgress />
+        <div className={classes.root}>
+          <CircularProgress />
+        </div>
       ) : (
         <Table size="small">
           <TableHead>
@@ -67,18 +84,19 @@ const Orders = (props) => {
           </TableBody>
         </Table>
       )}
-      {/* <div className={classes.seeMore}>
-        <Link color="primary" onClick="viewMoreOrders">
-          See more orders
-        </Link>
-      </div> */}
+      {showMore ? (
+        <div className={classes.seeMore}>
+          <Link color="primary" onClick={viewMoreOrders}>
+            See more orders
+          </Link>
+        </div>
+      ) : null}
     </React.Fragment>
   );
 };
 
 function mapStateToProps(state) {
   return {
-    user: state.auth.user,
     orders: state.orders.orders,
     isLoading: state.orders.isLoading,
   };

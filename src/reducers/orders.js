@@ -7,7 +7,7 @@ import {
   UPDATE_ORDER_DETAILS_FAILURE,
   ADD_ORDER_REQUEST,
   ADD_ORDER_SUCCESS,
-  ADD_ORDER_FAILURE
+  ADD_ORDER_FAILURE,
 } from "../actions";
 
 const initialState = {
@@ -16,9 +16,13 @@ const initialState = {
   error: {},
   isUpdateInProgress: false,
   isAddingInProgress: false,
+  isAddSuccess: false,
+  isAddFailure: false,
+  isUpdateSuccess: false,
+  isUpdateFailure: false,
 };
 
-export default (state = initialState, action) => {
+const orders = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_ORDERS_REQUEST:
       return {
@@ -47,37 +51,51 @@ export default (state = initialState, action) => {
     case UPDATE_ORDER_DETAILS_REQUEST:
       return {
         ...state,
+        isUpdateSuccess: false,
+        isUpdateFailure: false,
       };
 
     case UPDATE_ORDER_DETAILS_SUCCESS:
       return {
         ...state,
+        isUpdateSuccess: true,
+        isUpdateFailure: false,
       };
 
     case UPDATE_ORDER_DETAILS_FAILURE:
       return {
         ...state,
+        isUpdateSuccess: false,
+        isUpdateFailure: true,
       };
-    
-      case ADD_ORDER_REQUEST:
+
+    case ADD_ORDER_REQUEST:
       return {
         ...state,
         isAddingInProgress: true,
+        isAddSuccess: false,
+        isAddFailure: false,
       };
 
     case ADD_ORDER_SUCCESS:
       return {
         ...state,
         isAddingInProgress: false,
+        isAddSuccess: true,
+        isAddFailure: false,
       };
 
     case ADD_ORDER_FAILURE:
       return {
         ...state,
         isAddingInProgress: false,
+        isAddSuccess: false,
+        isAddFailure: true,
       };
 
     default:
       return state;
   }
 };
+
+export default orders;

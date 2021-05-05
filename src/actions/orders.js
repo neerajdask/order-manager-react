@@ -1,6 +1,6 @@
 import { API } from "../api";
 
-import {history} from '../history/history'
+import { history } from "../history/history";
 
 export const FETCH_ORDERS_REQUEST = "FETCH_ORDERS_REQUEST";
 export const FETCH_ORDERS_SUCCESS = "FETCH_ORDERS_SUCCESS";
@@ -95,12 +95,16 @@ export function updateOrder(id, newTitle) {
     })
       .then((res) => {
         console.log(res.data);
-        history.pushState("/orders")
         dispatch(updateOrderSuccess(res.data));
+        history.push("/orders");
       })
       .catch((err) => {
         console.log(err);
         dispatch(updateOrderFailure(err));
+        history.push("/orders");
+      })
+      .finally(() => {
+        history.push("/orders");
       });
   };
 }
@@ -135,11 +139,15 @@ export function addOrder(
       .then((res) => {
         console.log(res.data);
         dispatch(addOrderSuccess(res.data));
-        history.push("/orders")
+        history.push("/orders");
       })
       .catch((err) => {
         console.log(err);
         dispatch(addOrderFailure(err));
+        history.push("/orders");
+      })
+      .finally(() => {
+        history.push("/orders");
       });
   };
 }

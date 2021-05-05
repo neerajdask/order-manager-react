@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,8 +6,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import OrderForm from "../forms/OrderForm"
+import OrderForm from "../forms/OrderForm";
 import { Copyright } from "./Copyright";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -49,6 +50,8 @@ const useStyles = makeStyles((theme) => ({
 let AddOrder = (props) => {
   const classes = useStyles();
   const { id } = props.match.params;
+  const { history } = props;
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -66,7 +69,7 @@ let AddOrder = (props) => {
           </Typography>
 
           <React.Fragment>
-            <OrderForm id={id} mode='add'/>
+            <OrderForm id={id} mode="add" history={history} />
           </React.Fragment>
         </Paper>
         <Copyright />
@@ -75,4 +78,4 @@ let AddOrder = (props) => {
   );
 };
 
-export default AddOrder;
+export default withRouter(AddOrder);

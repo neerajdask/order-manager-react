@@ -9,18 +9,17 @@ import {
   VERIFY_SUCCESS,
 } from "../actions/index";
 
-export default (
-  state = {
-    isLoggingIn: false,
-    isLoggingOut: false,
-    isVerifying: false,
-    loginError: false,
-    logoutError: false,
-    isAuthenticated: false,
-    user: {},
-  },
-  action
-) => {
+const initialState = {
+  isLoggingIn: false,
+  isLoggingOut: false,
+  isVerifying: false,
+  loginError: false,
+  logoutError: false,
+  isAuthenticated: false,
+  user: {},
+};
+
+const auth =  (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -76,3 +75,5 @@ export default (
       return state;
   }
 };
+
+export default auth;

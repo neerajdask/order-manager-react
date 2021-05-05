@@ -7,24 +7,26 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
 import { updateOrder, addOrder } from "../actions/orders";
-
-import {history} from '../history/history'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
+  },
+  root: {
+    display: "flex",
+    justifyContent: "space-around",
+    "& > * + *": {
+      marginLeft: theme.spacing(2),
+    },
   },
 }));
 
 let OrderForm = (props) => {
   let {
     handleSubmit,
-    pristine,
-    reset,
-    submitting,
     id,
     orders,
     mode,
@@ -32,6 +34,7 @@ let OrderForm = (props) => {
     addOrder,
     isAddingInProgress,
     isUpdateInProgress,
+    history,
   } = props;
 
   const classes = useStyles();
@@ -52,7 +55,6 @@ let OrderForm = (props) => {
       });
       if (found) {
         setItem(found);
-        setTitle(found.title);
         setNewTitle(found.title);
       }
     }
@@ -62,13 +64,15 @@ let OrderForm = (props) => {
 
   handleSubmit = () => {
     if (mode === "edit") {
-      return updateOrder(item.uid, newTitle);
+      updateOrder(item.uid, newTitle);
+      return history.push("/orders");
     }
-    return addOrder(id, title, customerName, street, city, zip, country);
+    addOrder(id, title, customerName, street, city, zip, country);
+    return history.push("/orders");
   };
-  
+
   const handleCancel = () => {
-    history.push('/orders') // check the reload issue. URL updated
+    history.push("/orders");
   };
 
   return (
@@ -78,7 +82,9 @@ let OrderForm = (props) => {
       </Typography>
 
       {isAddingInProgress || isUpdateInProgress ? (
-        <CircularProgress />
+        <div className={classes.root}>
+          <CircularProgress />
+        </div>
       ) : (
         <form
           onSubmit={(e) => {
@@ -176,7 +182,7 @@ let OrderForm = (props) => {
               >
                 Submit
               </Button>
-              
+
               <Button
                 variant="contained"
                 color="secondary"

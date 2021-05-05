@@ -58,9 +58,6 @@ function App(props) {
       />
 
       <Route path="/login" component={Login} />
-      {/* <Route path="/orders" component={OrdersView} />
-      <Route path="/editOrder/:id" component={EditOrders} />
-      <Route path="/addOrder" component={AddOrder} /> */}
     </Switch>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -8,6 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import OrderForm from "../forms/OrderForm"
 import { Copyright } from "./Copyright";
+import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -49,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 let EditOrder = (props) => {
   const classes = useStyles();
   const { id } = props.match.params;
+  const { history } = props;
   return (
     <React.Fragment>
       <CssBaseline />
@@ -66,7 +68,7 @@ let EditOrder = (props) => {
           </Typography>
 
           <React.Fragment>
-            <OrderForm id={id} mode='edit'/>
+            <OrderForm id={id} mode='edit' history={history}/>
           </React.Fragment>
         </Paper>
         <Copyright />
@@ -75,4 +77,4 @@ let EditOrder = (props) => {
   );
 };
 
-export default EditOrder;
+export default withRouter(EditOrder);

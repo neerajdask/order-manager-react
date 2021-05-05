@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
@@ -12,8 +12,17 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 import { Copyright } from "./Copyright";
 import Orders from "./material-components/Orders";
+import { connect } from "react-redux";
 
-const OrdersView = ({ history }) => {
+const OrdersView = (props) => {
+  const {
+    history,
+    isAddSuccess,
+    isAddFailure,
+    isUpdateSuccess,
+    isUpdateFailure,
+  } = props;
+
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
@@ -60,24 +69,36 @@ const OrdersView = ({ history }) => {
 
   const classes = useStyles();
 
+  const [message, setMessage] = useState('');
   const [open, setOpen] = React.useState(false);
 
-  const handleClick = () => {
+  const openSnackBar = (message) => {
     setOpen(true);
+    setMessage(message)
   };
 
-  const handleClose = (event, reason) => {
+  const closeSnackBar = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
 
   const addNewOrder = () => {
     history.push(`/addOrder`);
-    // setOpen(true);
   };
+
+  useEffect(() => {
+    if(isAddSuccess) {
+      openSnackBar('Added order successfully!');
+    }else if(isUpdateSuccess) {
+      openSnackBar('Updated order successfully!');
+    }else if(isAddFailure) {
+      openSnackBar('Oops, something went wrong. Please try again later.');
+    }else if(isUpdateFailure) {
+      openSnackBar('Oops, something went wrong. Please try again later.');
+    }
+  });
 
   return (
     <React.Fragment>
@@ -102,14 +123,23 @@ const OrdersView = ({ history }) => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "center",
         }}
         open={open}
         autoHideDuration={3000}
-        onClose={handleClose}
-        message="Order Added successfully!"
+        onClose={closeSnackBar}
+        message={message}
       />
     </React.Fragment>
   );
 };
-export default withRouter(OrdersView);
+
+const mapStateToProps = (state) => {
+  return {
+    isAddSuccess: state.orders.isAddSuccess,
+    isAddFailure: state.orders.isAddFailure,
+    isUpdateSuccess: state.orders.isUpdateSuccess,
+    isUpdateFailure: state.orders.isUpdateFailure,
+  };
+};
+export default connect(mapStateToProps)(withRouter(OrdersView));

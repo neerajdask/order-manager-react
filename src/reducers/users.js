@@ -10,7 +10,7 @@ import {
     error: {},
   }
   
-  export default (
+const users =  (
     state = initialState,
     action
   ) => {
@@ -43,3 +43,4 @@ import {
     }
   };
   
+  export default users;
