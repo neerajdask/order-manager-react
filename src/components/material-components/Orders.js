@@ -70,7 +70,7 @@ const Orders = (props) => {
           <TableBody>
             {orders?.map((order) => (
               <TableRow
-                key={order?.title}
+                key={order?.uid}
                 onClick={() => {
                   handleItemClick(order.uid);
                 }}

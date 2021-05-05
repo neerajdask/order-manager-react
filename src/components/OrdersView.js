@@ -69,12 +69,15 @@ const OrdersView = (props) => {
 
   const classes = useStyles();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [open, setOpen] = React.useState(false);
 
   const openSnackBar = (message) => {
     setOpen(true);
-    setMessage(message)
+    setMessage(message);
+    setTimeout(() => {
+      closeSnackBar();
+    }, 3000);
   };
 
   const closeSnackBar = (event, reason) => {
@@ -89,15 +92,15 @@ const OrdersView = (props) => {
   };
 
   useEffect(() => {
-    if(isAddSuccess) {
-      openSnackBar('Added order successfully!');
-    }else if(isUpdateSuccess) {
-      openSnackBar('Updated order successfully!');
-    }else if(isAddFailure) {
-      openSnackBar('Oops, something went wrong. Please try again later.');
-    }else if(isUpdateFailure) {
-      openSnackBar('Oops, something went wrong. Please try again later.');
-    }
+    // if(isAddSuccess) {
+    //   openSnackBar('Added order successfully!');
+    // }else if(isUpdateSuccess) {
+    //   openSnackBar('Updated order successfully!');
+    // }else if(isAddFailure) {
+    //   openSnackBar('Oops, something went wrong. Please try again later.');
+    // }else if(isUpdateFailure) {
+    //   openSnackBar('Oops, something went wrong. Please try again later.');
+    // }
   });
 
   return (

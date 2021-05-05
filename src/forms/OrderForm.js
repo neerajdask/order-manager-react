@@ -38,15 +38,15 @@ let OrderForm = (props) => {
   } = props;
 
   const classes = useStyles();
-  const [item, setItem] = useState({});
-  const [newTitle, setNewTitle] = useState(" ");
 
-  const [title, setTitle] = useState(" "); // check - add mode
-  const [customerName, setCustomerName] = useState(" ");
-  const [street, setStreet] = useState(" ");
-  const [zip, setZip] = useState(" ");
-  const [city, setCity] = useState(" ");
-  const [country, setCountry] = useState(" ");
+  const [item, setItem] = useState({});
+  const [newTitle, setNewTitle] = useState("");
+  const [title, setTitle] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [street, setStreet] = useState("");
+  const [zip, setZip] = useState("");
+  const [city, setCity] = useState("");
+  const [country, setCountry] = useState("");
 
   useEffect(() => {
     if (mode === "edit") {
@@ -58,17 +58,21 @@ let OrderForm = (props) => {
         setNewTitle(found.title);
       }
     }
-    setTitle(" ");
-    setNewTitle(" ");
   }, [id]);
 
   handleSubmit = () => {
     if (mode === "edit") {
-      updateOrder(item.uid, newTitle);
-      return history.push("/orders");
+      if (newTitle) {
+        return updateOrder(item.uid, newTitle);
+      }
+      return;
+    } else {
+      if (title && title && customerName && street && city && zip && country) {
+        addOrder(item.uid, title, customerName, street, city, zip, country);
+      }
+      return;
+      // return history.push("/orders");
     }
-    addOrder(id, title, customerName, street, city, zip, country);
-    return history.push("/orders");
   };
 
   const handleCancel = () => {
@@ -95,7 +99,7 @@ let OrderForm = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
+                required={true}
                 id="title"
                 name="title"
                 label="Title"
@@ -110,49 +114,47 @@ let OrderForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
+                required={true}
                 id="customerName"
                 name="customerName"
                 label="Customer Name"
                 fullWidth
                 disabled={mode === "edit" ? true : false}
-                value={
-                  mode === "edit" ? item?.customer?.name || " " : customerName
-                }
+                value={mode === "edit" ? item?.customer?.name : customerName}
                 onInput={(e) => setCustomerName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                required={true}
                 id="street"
                 name="street"
                 label="Street"
                 fullWidth
-                value={mode === "edit" ? item?.address?.street || " " : street}
+                value={mode === "edit" ? item?.address?.street : street}
                 disabled={mode === "edit" ? true : false}
                 onInput={(e) => setStreet(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
+                required={true}
                 id="city"
                 name="city"
                 label="City"
                 fullWidth
                 disabled={mode === "edit" ? true : false}
-                value={mode === "edit" ? item?.address?.city || " " : city}
+                value={mode === "edit" ? item?.address?.city : city}
                 onInput={(e) => setCity(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
+                required={true}
                 id="zip"
                 name="zip"
                 label="Zip / Postal code"
-                value={mode === "edit" ? item?.address?.zip || " " : zip}
+                value={mode === "edit" ? item?.address?.zip : zip}
                 fullWidth
                 disabled={mode === "edit" ? true : false}
                 onInput={(e) => setZip(e.target.value)}
@@ -160,15 +162,13 @@ let OrderForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                required
+                required={true}
                 id="country"
                 name="country"
                 label="Country"
                 fullWidth
                 disabled={mode === "edit" ? true : false}
-                value={
-                  mode === "edit" ? item?.address?.country || " " : country
-                }
+                value={mode === "edit" ? item?.address?.country : country}
                 onInput={(e) => setCountry(e.target.value)}
               />
             </Grid>
