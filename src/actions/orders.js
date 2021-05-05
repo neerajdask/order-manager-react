@@ -110,7 +110,6 @@ export function updateOrder(id, newTitle) {
 }
 
 export function addOrder(
-  // id,
   title,
   customerName,
   street,
@@ -121,12 +120,11 @@ export function addOrder(
   return (dispatch) => {
     dispatch(addOrderRequest());
     return API.post(`orders`, {
-      // id,
       title,
       customer: {
-        email: "emad.alam@construyo.de",
+        email: "ned@das.com",
         name: customerName,
-        phone: "015252098067",
+        phone: "0123456789",
       },
       address: {
         street,

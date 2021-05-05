@@ -68,7 +68,7 @@ let OrderForm = (props) => {
       return;
     } else {
       if (title && title && customerName && street && city && zip && country) {
-        addOrder(item.uid, title, customerName, street, city, zip, country);
+        addOrder(title, customerName, street, city, zip, country);
       }
       return;
       // return history.push("/orders");
