@@ -14,6 +14,8 @@ export const UPDATE_ORDER_DETAILS_REQUEST = "UPDATE_ORDER_DETAILS_REQUEST";
 export const UPDATE_ORDER_DETAILS_SUCCESS = "UPDATE_ORDER_DETAILS_SUCCESS";
 export const UPDATE_ORDER_DETAILS_FAILURE = "UPDATE_ORDER_DETAILS_FAILURE";
 
+export const RESET_OPERATION_STATUS = "RESET_OPERATION_STATUS";
+
 const fetchOrdersRequest = () => {
   return {
     type: FETCH_ORDERS_REQUEST,
@@ -72,6 +74,12 @@ const addOrderFailure = () => {
   };
 };
 
+export function resetStatus() {
+  return {
+    type: RESET_OPERATION_STATUS,
+  };
+}
+
 export function fetchOrders() {
   return (dispatch) => {
     dispatch(fetchOrdersRequest());
@@ -109,14 +117,7 @@ export function updateOrder(id, newTitle) {
   };
 }
 
-export function addOrder(
-  title,
-  customerName,
-  street,
-  city,
-  zip,
-  country
-) {
+export function addOrder(title, customerName, street, city, zip, country) {
   return (dispatch) => {
     dispatch(addOrderRequest());
     return API.post(`orders`, {

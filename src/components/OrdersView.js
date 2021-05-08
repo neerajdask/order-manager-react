@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
+import { connect } from "react-redux";
+import { resetStatus } from "../actions/orders";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
@@ -12,7 +14,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 
 import { Copyright } from "./Copyright";
 import Orders from "./material-components/Orders";
-import { connect } from "react-redux";
 
 const OrdersView = (props) => {
   const {
@@ -21,6 +22,7 @@ const OrdersView = (props) => {
     isAddFailure,
     isUpdateSuccess,
     isUpdateFailure,
+    resetStatus,
   } = props;
 
   const useStyles = makeStyles((theme) => ({
@@ -92,6 +94,7 @@ const OrdersView = (props) => {
   };
 
   useEffect(() => {
+    resetStatus();
     // if(isAddSuccess) {
     //   openSnackBar('Added order successfully!');
     // }else if(isUpdateSuccess) {
@@ -106,12 +109,12 @@ const OrdersView = (props) => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="primary" className={classes.appBar}>
+      <AppBar position='absolute' color='primary' className={classes.appBar}>
         <Toolbar className={classes.toolBar}>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant='h6' color='inherit' noWrap>
             Orders
           </Typography>
-          <Button variant="contained" color="secondary" onClick={addNewOrder}>
+          <Button variant='contained' color='secondary' onClick={addNewOrder}>
             Add Order
           </Button>
         </Toolbar>
@@ -145,4 +148,6 @@ const mapStateToProps = (state) => {
     isUpdateFailure: state.orders.isUpdateFailure,
   };
 };
-export default connect(mapStateToProps)(withRouter(OrdersView));
+export default connect(mapStateToProps, { resetStatus })(
+  withRouter(OrdersView)
+);

@@ -8,6 +8,7 @@ import {
   ADD_ORDER_REQUEST,
   ADD_ORDER_SUCCESS,
   ADD_ORDER_FAILURE,
+  RESET_OPERATION_STATUS,
 } from "../actions";
 
 const initialState = {
@@ -51,6 +52,7 @@ const orders = (state = initialState, action) => {
     case UPDATE_ORDER_DETAILS_REQUEST:
       return {
         ...state,
+        isUpdateInProgress: true,
         isUpdateSuccess: false,
         isUpdateFailure: false,
       };
@@ -58,6 +60,7 @@ const orders = (state = initialState, action) => {
     case UPDATE_ORDER_DETAILS_SUCCESS:
       return {
         ...state,
+        isUpdateInProgress: false,
         isUpdateSuccess: true,
         isUpdateFailure: false,
       };
@@ -65,6 +68,7 @@ const orders = (state = initialState, action) => {
     case UPDATE_ORDER_DETAILS_FAILURE:
       return {
         ...state,
+        isUpdateInProgress: false,
         isUpdateSuccess: false,
         isUpdateFailure: true,
       };
@@ -91,6 +95,17 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: false,
         isAddSuccess: false,
         isAddFailure: true,
+      };
+
+    case RESET_OPERATION_STATUS:
+      return {
+        ...state,
+        isUpdateInProgress: false,
+        isAddingInProgress: false,
+        isAddSuccess: false,
+        isAddFailure: false,
+        isUpdateSuccess: false,
+        isUpdateFailure: false,
       };
 
     default:
