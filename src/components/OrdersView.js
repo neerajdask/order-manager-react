@@ -9,21 +9,12 @@ import { resetStatus } from "../actions/orders";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
-import Snackbar from "@material-ui/core/Snackbar";
-// import MuiAlert from "@material-ui/lab/Alert";
 
 import { Copyright } from "./Copyright";
 import Orders from "./material-components/Orders";
 
 const OrdersView = (props) => {
-  const {
-    history,
-    isAddSuccess,
-    isAddFailure,
-    isUpdateSuccess,
-    isUpdateFailure,
-    resetStatus,
-  } = props;
+  const { history, resetStatus } = props;
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,39 +62,12 @@ const OrdersView = (props) => {
 
   const classes = useStyles();
 
-  const [message, setMessage] = useState("");
-  const [open, setOpen] = React.useState(false);
-
-  const openSnackBar = (message) => {
-    setOpen(true);
-    setMessage(message);
-    setTimeout(() => {
-      closeSnackBar();
-    }, 3000);
-  };
-
-  const closeSnackBar = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
-
   const addNewOrder = () => {
     history.push(`/addOrder`);
   };
 
   useEffect(() => {
     resetStatus();
-    // if(isAddSuccess) {
-    //   openSnackBar('Added order successfully!');
-    // }else if(isUpdateSuccess) {
-    //   openSnackBar('Updated order successfully!');
-    // }else if(isAddFailure) {
-    //   openSnackBar('Oops, something went wrong. Please try again later.');
-    // }else if(isUpdateFailure) {
-    //   openSnackBar('Oops, something went wrong. Please try again later.');
-    // }
   });
 
   return (
@@ -125,29 +89,14 @@ const OrdersView = (props) => {
         </Paper>
         <Copyright />
       </main>
-
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        open={open}
-        autoHideDuration={3000}
-        onClose={closeSnackBar}
-        message={message}
-      />
     </React.Fragment>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isAddSuccess: state.orders.isAddSuccess,
-    isAddFailure: state.orders.isAddFailure,
-    isUpdateSuccess: state.orders.isUpdateSuccess,
-    isUpdateFailure: state.orders.isUpdateFailure,
-  };
-};
-export default connect(mapStateToProps, { resetStatus })(
+// const mapStateToProps = (state) => {
+//   return {};
+// };
+
+export default connect(null, { resetStatus })(
   withRouter(OrdersView)
 );

@@ -17,7 +17,7 @@ import { withRouter } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
-    justifyContent: 'space-around',
+    justifyContent: "space-around",
     "& > * + *": {
       marginLeft: theme.spacing(2),
     },
@@ -36,7 +36,9 @@ const Orders = (props) => {
 
   useEffect(() => {
     if (location.pathname !== "/orders") {
-      fetchOrders();
+      if (orders.length === 0) {
+        // fetchOrders();
+      }
       setShowMore(true);
     }
   }, []);
@@ -50,6 +52,11 @@ const Orders = (props) => {
     history.push(`/orders`);
   };
 
+  const getDate = (bookingDate) => {
+    const bDate = new Date(bookingDate);
+    return bDate.toDateString();
+  };
+
   return (
     <React.Fragment>
       <Title>Your orders</Title>
@@ -58,7 +65,7 @@ const Orders = (props) => {
           <CircularProgress />
         </div>
       ) : (
-        <Table size="small">
+        <Table size='small'>
           <TableHead>
             <TableRow>
               <TableCell>Title</TableCell>
@@ -73,10 +80,9 @@ const Orders = (props) => {
                 key={order?.uid}
                 onClick={() => {
                   handleItemClick(order.uid);
-                }}
-              >
+                }}>
                 <TableCell>{order?.title}</TableCell>
-                <TableCell>{order?.bookingDate}</TableCell>
+                <TableCell>{getDate(order?.bookingDate)}</TableCell>
                 <TableCell>{order?.address?.city}</TableCell>
                 <TableCell>{order?.customer?.name}</TableCell>
               </TableRow>
@@ -86,7 +92,7 @@ const Orders = (props) => {
       )}
       {showMore ? (
         <div className={classes.seeMore}>
-          <Link color="primary" onClick={viewMoreOrders}>
+          <Link color='primary' onClick={viewMoreOrders}>
             See more orders
           </Link>
         </div>

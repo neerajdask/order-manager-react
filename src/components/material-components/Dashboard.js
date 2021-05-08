@@ -132,8 +132,8 @@ const Dashboard = (props) => {
     logoutUser();
   };
 
-  const handleClick = () => {
-    history.push("/orders");
+  const handleNavigation = (path) => {
+    history.push(path);
   };
 
   return (
@@ -200,17 +200,17 @@ const Dashboard = (props) => {
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
             </ListItem>
-            <ListItem button onClick={handleClick}>
+            <ListItem button onClick={()=>{handleNavigation('/orders')}}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
               <ListItemText primary="Orders" />
             </ListItem>
-            <ListItem button>
+            <ListItem button onClick={()=>{handleNavigation('/users')}}>
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Customers" />
+              <ListItemText primary="Users" />
             </ListItem>
           </div>
         </List>

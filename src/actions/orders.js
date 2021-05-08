@@ -117,15 +117,24 @@ export function updateOrder(id, newTitle) {
   };
 }
 
-export function addOrder(title, customerName, street, city, zip, country) {
+export function addOrder(
+  title,
+  customerName,
+  email,
+  phone,
+  street,
+  city,
+  zip,
+  country
+) {
   return (dispatch) => {
     dispatch(addOrderRequest());
     return API.post(`orders`, {
       title,
       customer: {
-        email: "ned@das.com",
+        email,
         name: customerName,
-        phone: "0123456789",
+        phone,
       },
       address: {
         street,

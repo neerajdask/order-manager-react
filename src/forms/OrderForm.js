@@ -48,6 +48,8 @@ let OrderForm = (props) => {
   const [newTitle, setNewTitle] = useState("");
   const [title, setTitle] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [street, setStreet] = useState("");
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
@@ -88,8 +90,17 @@ let OrderForm = (props) => {
       }
       return;
     } else {
-      if (title && title && customerName && street && city && zip && country) {
-        addOrder(title, customerName, street, city, zip, country);
+      if (
+        title &&
+        customerName &&
+        email &&
+        phone &&
+        street &&
+        city &&
+        zip &&
+        country
+      ) {
+        addOrder(title, customerName, email, phone, street, city, zip, country);
       }
       return;
       // return history.push("/orders");
@@ -131,6 +142,7 @@ let OrderForm = (props) => {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='title'
                 name='title'
@@ -144,8 +156,10 @@ let OrderForm = (props) => {
                 }
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='customerName'
                 name='customerName'
@@ -156,8 +170,38 @@ let OrderForm = (props) => {
                 onInput={(e) => setCustomerName(e.target.value)}
               />
             </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete='off'
+                required={true}
+                id='customerEmail'
+                name='customerEmail'
+                label='Email'
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                value={mode === "edit" ? item?.customer?.email : email}
+                onInput={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete='off'
+                required={true}
+                id='customerPhone'
+                name='customerPhone'
+                label='Phone'
+                fullWidth
+                disabled={mode === "edit" ? true : false}
+                value={mode === "edit" ? item?.customer?.phone : phone}
+                onInput={(e) => setPhone(e.target.value)}
+              />
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='street'
                 name='street'
@@ -168,8 +212,10 @@ let OrderForm = (props) => {
                 onInput={(e) => setStreet(e.target.value)}
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='city'
                 name='city'
@@ -180,8 +226,10 @@ let OrderForm = (props) => {
                 onInput={(e) => setCity(e.target.value)}
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='zip'
                 name='zip'
@@ -192,8 +240,10 @@ let OrderForm = (props) => {
                 onInput={(e) => setZip(e.target.value)}
               />
             </Grid>
+
             <Grid item xs={12} sm={6}>
               <TextField
+                autoComplete='off'
                 required={true}
                 id='country'
                 name='country'
@@ -204,6 +254,7 @@ let OrderForm = (props) => {
                 onInput={(e) => setCountry(e.target.value)}
               />
             </Grid>
+
             <Grid item xs={12}>
               <Button
                 variant='contained'
