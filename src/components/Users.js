@@ -10,6 +10,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Toolbar from "@material-ui/core/Toolbar";
+import HomeIcon from "@material-ui/icons/Home";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
@@ -25,6 +26,15 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
+  iconContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    // flex-direction: row;
+    alignItems: "center",
+  },
+  homeIcon: {
+    marginRight: "36px",
+  },
   media: {
     height: 140,
   },
@@ -32,21 +42,32 @@ const useStyles = makeStyles({
 
 const Users = (props) => {
   const classes = useStyles();
-  const { user, userID, fetchUsers, fetchUserDetail } = props;
+  const { user, userID, fetchUsers, fetchUserDetail, history } = props;
 
   useEffect(() => {
     fetchUsers();
     fetchUserDetail(userID);
   }, []);
 
+  const navigateToHome = () => {
+    history.push("/");
+  };
+
   return (
     <>
       <CssBaseline />
       <AppBar position='absolute' color='primary' className={classes.appBar}>
-        <Toolbar className={classes.toolBar}>
-          <Typography variant='h6' color='inherit' noWrap>
-            User
-          </Typography>
+        <Toolbar
+          className={classes.toolBar}
+          onClick={() => {
+            navigateToHome();
+          }}>
+          <div className={classes.iconContainer}>
+            <HomeIcon className={classes.homeIcon} />
+            <Typography variant='h6' color='inherit' noWrap>
+              User
+            </Typography>
+          </div>
         </Toolbar>
       </AppBar>
       <div className={classes.container}>

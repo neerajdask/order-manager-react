@@ -7,6 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import { connect } from "react-redux";
 import { resetStatus } from "../actions/orders";
 import Toolbar from "@material-ui/core/Toolbar";
+import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 
@@ -29,6 +30,15 @@ const OrdersView = (props) => {
     toolBar: {
       display: "flex",
       justifyContent: "space-between",
+    },
+    iconContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      // flex-direction: row;
+      alignItems: "center",
+    },
+    homeIcon: {
+      marginRight: '36px',
     },
     layout: {
       width: "auto",
@@ -66,6 +76,10 @@ const OrdersView = (props) => {
     history.push(`/addOrder`);
   };
 
+  const navigateToHome = () => {
+    history.push("/");
+  };
+
   useEffect(() => {
     resetStatus();
   });
@@ -74,10 +88,17 @@ const OrdersView = (props) => {
     <React.Fragment>
       <CssBaseline />
       <AppBar position='absolute' color='primary' className={classes.appBar}>
-        <Toolbar className={classes.toolBar}>
-          <Typography variant='h6' color='inherit' noWrap>
-            Orders
-          </Typography>
+        <Toolbar
+          className={classes.toolBar}
+          onClick={() => {
+            navigateToHome();
+          }}>
+          <div  className={classes.iconContainer}>
+            <HomeIcon  className={classes.homeIcon}/>
+            <Typography variant='h6' color='inherit' noWrap>
+              Orders
+            </Typography>
+          </div>
           <Button variant='contained' color='secondary' onClick={addNewOrder}>
             Add Order
           </Button>
@@ -97,6 +118,4 @@ const OrdersView = (props) => {
 //   return {};
 // };
 
-export default connect(null, { resetStatus })(
-  withRouter(OrdersView)
-);
+export default connect(null, { resetStatus })(withRouter(OrdersView));

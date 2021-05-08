@@ -37,7 +37,7 @@ const Orders = (props) => {
   useEffect(() => {
     if (location.pathname !== "/orders") {
       if (orders.length === 0) {
-        // fetchOrders();
+        fetchOrders();
       }
       setShowMore(true);
     }

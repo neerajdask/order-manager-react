@@ -187,7 +187,7 @@ const Dashboard = (props) => {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} alt="Collapse button">
             <ChevronLeftIcon />
           </IconButton>
         </div>
