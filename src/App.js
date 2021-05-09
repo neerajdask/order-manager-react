@@ -9,20 +9,6 @@ import EditOrders from "./components/EditOrder";
 import AddOrder from "./components/AddOrder";
 import Users from "./components/Users";
 
-/**TODO
- * Add Snackbar on order update and addition. https://material-ui.com/components/snackbars/ -- DONE
- * Add spinner while above action is ongoing. -- DONE
- * Check error scenarios. -- DONE
- * Refactor code- remove and condense multiple components if possible
- * Dashboard -- Make sidebar and appbar common.
- * User action-reducer to be filled with functionality. -- DONE
- * Adjust protected Routes -- DONE
- * Documentation
- * Clear console.log
- * Test
- * Deploy -- OPTIONAL.
- */
-
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
