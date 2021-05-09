@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
 const Orders = (props) => {
   const classes = useStyles();
 
-  const { orders, fetchOrders, isLoading, history, location } = props;
+  const { orders, error, fetchOrders, isLoading, history, location } = props;
 
   const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
     if (location.pathname !== "/orders") {
       if (orders.length === 0) {
-        fetchOrders();
+        // fetchOrders();
       }
       setShowMore(true);
     }
@@ -104,6 +104,7 @@ const Orders = (props) => {
 function mapStateToProps(state) {
   return {
     orders: state.orders.orders,
+    error: state.orders.error,
     isLoading: state.orders.isLoading,
   };
 }

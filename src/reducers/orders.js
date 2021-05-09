@@ -46,7 +46,7 @@ const orders = (state = initialState, action) => {
         ...state,
         isLoading: false,
         orders: [],
-        error: action.payload.error,
+        error: action.payload,
       };
 
     case UPDATE_ORDER_DETAILS_REQUEST:
@@ -55,6 +55,7 @@ const orders = (state = initialState, action) => {
         isUpdateInProgress: true,
         isUpdateSuccess: false,
         isUpdateFailure: false,
+        error: {},
       };
 
     case UPDATE_ORDER_DETAILS_SUCCESS:
@@ -63,6 +64,7 @@ const orders = (state = initialState, action) => {
         isUpdateInProgress: false,
         isUpdateSuccess: true,
         isUpdateFailure: false,
+        error: {},
       };
 
     case UPDATE_ORDER_DETAILS_FAILURE:
@@ -71,6 +73,7 @@ const orders = (state = initialState, action) => {
         isUpdateInProgress: false,
         isUpdateSuccess: false,
         isUpdateFailure: true,
+        error:action.payload
       };
 
     case ADD_ORDER_REQUEST:
@@ -79,6 +82,7 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: true,
         isAddSuccess: false,
         isAddFailure: false,
+        error: {},
       };
 
     case ADD_ORDER_SUCCESS:
@@ -87,6 +91,7 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: false,
         isAddSuccess: true,
         isAddFailure: false,
+        error:{}
       };
 
     case ADD_ORDER_FAILURE:
@@ -95,6 +100,7 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: false,
         isAddSuccess: false,
         isAddFailure: true,
+        error:action.payload
       };
 
     case RESET_OPERATION_STATUS:
@@ -106,6 +112,7 @@ const orders = (state = initialState, action) => {
         isAddFailure: false,
         isUpdateSuccess: false,
         isUpdateFailure: false,
+        error: {},
       };
 
     default:

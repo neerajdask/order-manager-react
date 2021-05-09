@@ -1,7 +1,5 @@
 import { API } from "../api";
 
-import { history } from "../history/history";
-
 export const FETCH_ORDERS_REQUEST = "FETCH_ORDERS_REQUEST";
 export const FETCH_ORDERS_SUCCESS = "FETCH_ORDERS_SUCCESS";
 export const FETCH_ORDERS_FAILURE = "FETCH_ORDERS_FAILURE";
@@ -84,11 +82,10 @@ export function fetchOrders() {
   return (dispatch) => {
     dispatch(fetchOrdersRequest());
     return API.get(`orders`)
-      .then((response) => {
-        dispatch(fetchOrdersSuccess(response.data));
+      .then((res) => {
+        dispatch(fetchOrdersSuccess(res.data));
       })
       .catch((err) => {
-        console.log(err);
         dispatch(fetchOrdersFailure(err));
       });
   };
@@ -102,17 +99,10 @@ export function updateOrder(id, newTitle) {
       bookingDate: new Date().getTime(),
     })
       .then((res) => {
-        console.log(res.data);
         dispatch(updateOrderSuccess(res.data));
-        history.push("/orders");
       })
       .catch((err) => {
-        console.log(err);
         dispatch(updateOrderFailure(err));
-        history.push("/orders");
-      })
-      .finally(() => {
-        history.push("/orders");
       });
   };
 }
@@ -145,17 +135,10 @@ export function addOrder(
       bookingDate: new Date().getTime(),
     })
       .then((res) => {
-        console.log(res.data);
         dispatch(addOrderSuccess(res.data));
-        history.push("/orders");
       })
       .catch((err) => {
-        console.log(err);
         dispatch(addOrderFailure(err));
-        history.push("/orders");
-      })
-      .finally(() => {
-        history.push("/orders");
       });
   };
 }

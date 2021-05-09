@@ -38,7 +38,7 @@ const OrdersView = (props) => {
       alignItems: "center",
     },
     homeIcon: {
-      marginRight: '36px',
+      marginRight: "36px",
     },
     layout: {
       width: "auto",
@@ -72,12 +72,8 @@ const OrdersView = (props) => {
 
   const classes = useStyles();
 
-  const addNewOrder = () => {
-    history.push(`/addOrder`);
-  };
-
-  const navigateToHome = () => {
-    history.push("/");
+  const navigate = (path) => {
+    history.push(path);
   };
 
   useEffect(() => {
@@ -90,16 +86,23 @@ const OrdersView = (props) => {
       <AppBar position='absolute' color='primary' className={classes.appBar}>
         <Toolbar
           className={classes.toolBar}
-          onClick={() => {
-            navigateToHome();
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate("/");
           }}>
-          <div  className={classes.iconContainer}>
-            <HomeIcon  className={classes.homeIcon}/>
+          <div className={classes.iconContainer}>
+            <HomeIcon className={classes.homeIcon} />
             <Typography variant='h6' color='inherit' noWrap>
               Orders
             </Typography>
           </div>
-          <Button variant='contained' color='secondary' onClick={addNewOrder}>
+          <Button
+            variant='contained'
+            color='secondary'
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate("/addOrder");
+            }}>
             Add Order
           </Button>
         </Toolbar>
@@ -113,9 +116,5 @@ const OrdersView = (props) => {
     </React.Fragment>
   );
 };
-
-// const mapStateToProps = (state) => {
-//   return {};
-// };
 
 export default connect(null, { resetStatus })(withRouter(OrdersView));

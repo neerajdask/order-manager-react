@@ -103,7 +103,6 @@ let OrderForm = (props) => {
         addOrder(title, customerName, email, phone, street, city, zip, country);
       }
       return;
-      // return history.push("/orders");
     }
   };
 

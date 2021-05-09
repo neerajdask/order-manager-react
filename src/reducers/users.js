@@ -37,7 +37,7 @@ const users = (state = initialState, action) => {
         ...state,
         isLoading: false,
         users: {},
-        error: {},
+        error: action.payload,
       };
 
     case FETCH_USER_DETAIL_REQUEST:
