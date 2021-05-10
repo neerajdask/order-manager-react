@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import clsx from "clsx";
+
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -17,19 +19,18 @@ import Paper from "@material-ui/core/Paper";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Avatar from "@material-ui/core/Avatar";
-import { Copyright } from "../Copyright";
-import Orders from "./Orders";
-import { deepOrange, pink } from "@material-ui/core/colors";
-
-import { logoutUser, fetchOrders } from "../../actions";
-import { withRouter } from "react-router-dom";
-
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
+import { deepOrange, pink } from "@material-ui/core/colors";
+
+import { Copyright } from "../Copyright";
+import Orders from "./Orders";
+import { logoutUser, fetchOrders } from "../../actions";
+
 
 const drawerWidth = 240;
 
@@ -140,54 +141,49 @@ const Dashboard = (props) => {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
+        position='absolute'
+        className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
+            edge='start'
+            color='inherit'
+            aria-label='open drawer'
             onClick={handleDrawerOpen}
             className={clsx(
               classes.menuButton,
               open && classes.menuButtonHidden
-            )}
-          >
+            )}>
             <MenuIcon />
           </IconButton>
           <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
+            component='h1'
+            variant='h6'
+            color='inherit'
             noWrap
-            className={classes.title}
-          >
+            className={classes.title}>
             Dashboard
           </Typography>
           <IconButton
-            color="inherit"
+            color='inherit'
             onClick={() => {
               handleLogout();
-            }}
-          >
+            }}>
             <Avatar
-              alt="User"
-              src="/static/images/avatar/1.jpg"
+              alt='User'
+              src='/static/images/avatar/1.jpg'
               className={classes.pink}
             />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
-        variant="permanent"
+        variant='permanent'
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
-        open={open}
-      >
+        open={open}>
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose} alt="Collapse button">
+          <IconButton onClick={handleDrawerClose} alt='Collapse button'>
             <ChevronLeftIcon />
           </IconButton>
         </div>
@@ -198,19 +194,27 @@ const Dashboard = (props) => {
               <ListItemIcon>
                 <DashboardIcon />
               </ListItemIcon>
-              <ListItemText primary="Dashboard" />
+              <ListItemText primary='Dashboard' />
             </ListItem>
-            <ListItem button onClick={()=>{handleNavigation('/orders')}}>
+            <ListItem
+              button
+              onClick={() => {
+                handleNavigation("/orders");
+              }}>
               <ListItemIcon>
                 <ShoppingCartIcon />
               </ListItemIcon>
-              <ListItemText primary="Orders" />
+              <ListItemText primary='Orders' />
             </ListItem>
-            <ListItem button onClick={()=>{handleNavigation('/users')}}>
+            <ListItem
+              button
+              onClick={() => {
+                handleNavigation("/users");
+              }}>
               <ListItemIcon>
                 <PeopleIcon />
               </ListItemIcon>
-              <ListItemText primary="Users" />
+              <ListItemText primary='Users' />
             </ListItem>
           </div>
         </List>
@@ -219,7 +223,7 @@ const Dashboard = (props) => {
 
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
+        <Container maxWidth='lg' className={classes.container}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}></Grid>
             <Grid item xs={12}>

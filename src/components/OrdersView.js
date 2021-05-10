@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+
+import Typography from "@material-ui/core/Typography";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
-import { connect } from "react-redux";
-import { resetStatus } from "../actions/orders";
 import Toolbar from "@material-ui/core/Toolbar";
 import HomeIcon from "@material-ui/icons/Home";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import { resetStatus } from "../actions/orders";
 
 import { Copyright } from "./Copyright";
 import Orders from "./material-components/Orders";

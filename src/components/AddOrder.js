@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,9 +7,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
+
 import OrderForm from "../forms/OrderForm";
 import { Copyright } from "./Copyright";
-import { withRouter } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -49,27 +50,27 @@ const useStyles = makeStyles((theme) => ({
 
 let AddOrder = (props) => {
   const classes = useStyles();
-  const { id } = props.match.params;
-  const { history } = props;
+  const { history, match } = props;
+  const { id } = match.params;
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="primary" className={classes.appBar}>
+      <AppBar position='absolute' color='primary' className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
+          <Typography variant='h6' color='inherit' noWrap>
             Order Details
           </Typography>
         </Toolbar>
       </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component='h1' variant='h4' align='center'>
             Add an Order
           </Typography>
 
           <React.Fragment>
-            <OrderForm id={id} mode="add" history={history} />
+            <OrderForm id={id} mode='add' history={history} />
           </React.Fragment>
         </Paper>
         <Copyright />

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,10 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Link from "@material-ui/core/Link";
 
 import Title from "./Title";
-import { connect } from "react-redux";
-
 import { fetchOrders } from "../../actions/orders";
-import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 const Orders = (props) => {
   const classes = useStyles();
 
-  const { orders, error, fetchOrders, isLoading, history, location } = props;
+  const { orders, fetchOrders, isLoading, history, location } = props;
 
   const [showMore, setShowMore] = useState(false);
 
