@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, withRouter  } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
@@ -15,45 +15,45 @@ function App(props) {
     <Switch>
       <ProtectedRoute
         exact
-        path="/"
+        path='/'
         component={withRouter(Home)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-      
+
       <ProtectedRoute
         exact
-        path="/orders"
+        path='/orders'
         component={withRouter(OrdersView)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-      
+
       <ProtectedRoute
         exact
-        path="/editOrder/:id"
+        path='/editOrder/:id'
         component={withRouter(EditOrders)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-      
+
       <ProtectedRoute
         exact
-        path="/addOrder"
+        path='/addOrder'
         component={withRouter(AddOrder)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-      
+
       <ProtectedRoute
         exact
-        path="/users"
+        path='/users'
         component={withRouter(Users)}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
 
-      <Route path="/login" component={Login} />
+      <Route path='/login' component={Login} />
     </Switch>
   );
 }

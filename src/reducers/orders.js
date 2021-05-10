@@ -73,7 +73,7 @@ const orders = (state = initialState, action) => {
         isUpdateInProgress: false,
         isUpdateSuccess: false,
         isUpdateFailure: true,
-        error:action.payload
+        error: action.payload,
       };
 
     case ADD_ORDER_REQUEST:
@@ -91,7 +91,7 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: false,
         isAddSuccess: true,
         isAddFailure: false,
-        error:{}
+        error: {},
       };
 
     case ADD_ORDER_FAILURE:
@@ -100,7 +100,7 @@ const orders = (state = initialState, action) => {
         isAddingInProgress: false,
         isAddSuccess: false,
         isAddFailure: true,
-        error:action.payload
+        error: action.payload,
       };
 
     case RESET_OPERATION_STATUS:

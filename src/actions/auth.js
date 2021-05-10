@@ -1,4 +1,4 @@
-import {firebaseConfig} from "../firebase/firebase";
+import { firebaseConfig } from "../firebase/firebase";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";

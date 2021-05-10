@@ -8,8 +8,7 @@ export const Copyright = () => {
     <Typography
       variant='body2'
       color='textSecondary'
-      align='center'
-      style={{ position: "absolute", top: "90vh"}}>
+      align='center'>
       {"Copyright © "}
       <Link color='inherit' href='https://material-ui.com/'>
         Neeraj Das K

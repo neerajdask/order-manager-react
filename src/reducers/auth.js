@@ -19,7 +19,7 @@ const initialState = {
   user: {},
 };
 
-const auth =  (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
