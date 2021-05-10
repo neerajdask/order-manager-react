@@ -10,6 +10,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Link from "@material-ui/core/Link";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
 
 import Title from "./Title";
 import { fetchOrders } from "../../actions/orders";
@@ -24,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   seeMore: {
     marginTop: theme.spacing(3),
+  },
+  editIcon: {
+    fontSize: "1rem",
   },
 }));
 
@@ -76,15 +81,21 @@ const Orders = (props) => {
           </TableHead>
           <TableBody>
             {orders?.map((order) => (
-              <TableRow
-                key={order?.uid}
-                onClick={() => {
-                  handleItemClick(order.uid);
-                }}>
+              <TableRow key={order?.uid}>
                 <TableCell>{order?.title}</TableCell>
                 <TableCell>{getDate(order?.bookingDate)}</TableCell>
                 <TableCell>{order?.address?.city}</TableCell>
                 <TableCell>{order?.customer?.name}</TableCell>
+
+                <TableCell>
+                  <EditIcon
+                    size='small'
+                    className={classes.editIcon}
+                    onClick={() => {
+                      handleItemClick(order.uid);
+                    }}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

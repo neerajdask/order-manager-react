@@ -25,7 +25,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PeopleIcon from "@material-ui/icons/People";
-import { deepOrange, pink } from "@material-ui/core/colors";
+import { pink } from "@material-ui/core/colors";
 
 import { Copyright } from "../Copyright";
 import Orders from "./Orders";
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   pink: {
     color: theme.palette.getContrastText(pink[500]),
-    backgroundColor: deepOrange[500],
+    backgroundColor: pink[500],
   },
   toolbarIcon: {
     display: "flex",
@@ -164,7 +164,7 @@ const Dashboard = (props) => {
             Dashboard
           </Typography>
           <IconButton
-            color='inherit'
+            color='primary'
             onClick={() => {
               handleLogout();
             }}>
