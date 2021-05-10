@@ -80,24 +80,43 @@ const Orders = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders?.map((order) => (
-              <TableRow key={order?.uid}>
-                <TableCell>{order?.title}</TableCell>
-                <TableCell>{getDate(order?.bookingDate)}</TableCell>
-                <TableCell>{order?.address?.city}</TableCell>
-                <TableCell>{order?.customer?.name}</TableCell>
+            {showMore
+              ? orders?.splice(0, 7).map((order) => (
+                  <TableRow key={order?.uid}>
+                    <TableCell>{order?.title}</TableCell>
+                    <TableCell>{getDate(order?.bookingDate)}</TableCell>
+                    <TableCell>{order?.address?.city}</TableCell>
+                    <TableCell>{order?.customer?.name}</TableCell>
 
-                <TableCell>
-                  <EditIcon
-                    size='small'
-                    className={classes.editIcon}
-                    onClick={() => {
-                      handleItemClick(order.uid);
-                    }}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
+                    <TableCell>
+                      <EditIcon
+                        size='small'
+                        className={classes.editIcon}
+                        onClick={() => {
+                          handleItemClick(order.uid);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              : orders?.map((order) => (
+                  <TableRow key={order?.uid}>
+                    <TableCell>{order?.title}</TableCell>
+                    <TableCell>{getDate(order?.bookingDate)}</TableCell>
+                    <TableCell>{order?.address?.city}</TableCell>
+                    <TableCell>{order?.customer?.name}</TableCell>
+
+                    <TableCell>
+                      <EditIcon
+                        size='small'
+                        className={classes.editIcon}
+                        onClick={() => {
+                          handleItemClick(order.uid);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
           </TableBody>
         </Table>
       )}
