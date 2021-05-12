@@ -15,7 +15,7 @@ This project was developed using the React.js library. The UX is obtained and co
 
 ## GitHub
 
-Please checkout (pun intended :D) this repo on GitHub for code review and contributions: [https://github.com/neerajdask/order-manager-react]
+Please checkout (pun intended :D) this repo on GitHub for code review and contributions: [https://github.com/neerajdask/order-manager-react]. Perform `npm install` in the project folder to install the dependencies.
 
 ## Detailed Documentation and Walkthrough
 
